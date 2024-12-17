@@ -21,14 +21,14 @@ const csvUrl = 'https://docs.google.com/spreadsheets/d/1-GUwxh2aceJG_tVfPoFQShug
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     
+<script>
 // Fetch and parse the CSV data
 Papa.parse(csvUrl, {
     download: true,
     header: true, // Automatically use the first row as column headers
     complete: function(results) {
         console.log("Parsed Data:", results.data);
-        // Call your function to process and display the data on the map
-        processData(results.data);
+        processData(results.data); // Call your function to process and display the data
     },
     error: function(err) {
         console.error("Error loading CSV:", err);
@@ -37,13 +37,13 @@ Papa.parse(csvUrl, {
 
 // Function to process the parsed data
 function processData(data) {
-    // Example: Loop through the data and log it
     data.forEach(row => {
         console.log(row);
-        // Add your map marker logic here
-        // Example: L.marker([row.latitude, row.longitude]).addTo(map);
+        // Example map marker logic:
+        // L.marker([row.latitude, row.longitude]).addTo(map);
     });
-}></script>
+}
+</script>
  
   <!-- Font Awesome -->
   <script src="https://use.fontawesome.com/77cd9dd4f5.js"></script>
