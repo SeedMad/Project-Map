@@ -1070,15 +1070,14 @@ function processData(data) {
     });
 }
        success: function() {
-         // Get all data from .csv files
-         mapData = Procsv;
-         mapData.load({
-           self: mapData,
-           tabs: ['Options', 'Points', 'Polygons', 'Polylines'],
-           callback: onMapDataLoad
-         });
-       }
-   });
+    // Get all data from .csv files
+    mapData = Procsv;
+    mapData.load({
+        self: mapData,
+        tabs: ['Options', 'Points', 'Polygons', 'Polylines'],
+        callback: onMapDataLoad
+    });
+}
 
   /**
    * Reformulates documentSettings as a dictionary, e.g.
