@@ -3,7 +3,7 @@
  */
 var Procsv = {
   load: function load(options) {
-    const googleSheetUrl = 'https://docs.google.com/spreadsheets/d/1-GUwxh2aceJG_tVfPoFQShuggz8jMz7d4yscWmDpzDw/edit?gid=0#gid=0';
+    const googleSheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTz5HReY6D0MUcXLWcWXhVwK9hUAY9DUrpEGMesYy2JsojUvaM4LwqNDZWSJuME1mKvtMWHN1MGDWoP/pub?output=csv';
 
     const tab = options.tabs.shift();
     if (!tab) {
