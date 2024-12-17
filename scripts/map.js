@@ -1048,11 +1048,27 @@ $(window).on('load', function() {
        error: function() {
          // Options.csv does not exist, so use Tabletop to fetch data from
          // the Google sheet
-         mapData = Tabletop.init({
-           key: googleDocURL,
-           callback: function(data, mapData) { onMapDataLoad(); }
-         });
-       },
+         const csvUrl = 'https://docs.google.com/spreadsheets/d/1-GUwxh2aceJG_tVfPoFQShuggz8jMz7d4yscWmDpzDw/edit?gid=0#gid=0>/pub?output=csv';
+
+Papa.parse(csvUrl, {
+    download: true,
+    header: true,
+    complete: function(results) {
+        console.log("Parsed Data:", results.data);
+        processData(results.data);
+    },
+    error: function(err) {
+        console.error("Error loading CSV:", err);
+    }
+});
+
+function processData(data) {
+    data.forEach(row => {
+        console.log(row);
+        // Add your map marker logic here, e.g.:
+        // L.marker([row.latitude, row.longitude]).addTo(map);
+    });
+}
        success: function() {
          // Get all data from .csv files
          mapData = Procsv;
