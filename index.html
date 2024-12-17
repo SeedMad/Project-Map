@@ -16,8 +16,33 @@
   <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
   <!-- leaflet-providers -->
-  <script // Replace with your published Google Sheets CSV link
-const csvUrl = 'https://docs.google.com/spreadsheets/d/1-GUwxh2aceJG_tVfPoFQShuggz8jMz7d4yscWmDpzDw/edit?gid=0#gid=0/pubhtml>/pub?output=csv';
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<script>
+// Replace with your published Google Sheets CSV link
+const csvUrl = 'https://docs.google.com/spreadsheets/d/1-GUwxh2aceJG_tVfPoFQShuggz8jMz7d4yscWmDpzDw/edit?gid=0#gid=0';
+
+// Fetch and parse the CSV data
+Papa.parse(csvUrl, {
+    download: true,
+    header: true, // Automatically use the first row as column headers
+    complete: function(results) {
+        console.log("Parsed Data:", results.data);
+        processData(results.data); // Call your function to process and display the data
+    },
+    error: function(err) {
+        console.error("Error loading CSV:", err);
+    }
+});
+
+// Function to process the parsed data
+function processData(data) {
+    data.forEach(row => {
+        console.log(row);
+        // Example map marker logic:
+        // L.marker([row.latitude, row.longitude]).addTo(map);
+    });
+}
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     
