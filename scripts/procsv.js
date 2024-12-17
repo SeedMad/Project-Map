@@ -1,24 +1,25 @@
 /**
- * Fetches data from .csv files and returns them just like Tabletop
+ * Fetches data from Google Sheets CSV and mimics Tabletop behavior.
  */
 var Procsv = {
-  // Recursive function that loads the contents of csv files one after the other,
-  // and calls the callback function when all tabs are loaded
   load: function load(options) {
-    t = options.tabs.shift();
-    if (!t) {
-      options.callback();
+    const googleSheetUrl = 'https://docs.google.com/spreadsheets/d/1-GUwxh2aceJG_tVfPoFQShuggz8jMz7d4yscWmDpzDw/edit?gid=0#gid=0';
+
+    const tab = options.tabs.shift();
+    if (!tab) {
+      options.callback(); // Call the callback when all tabs are loaded
     } else {
-      $.ajax({
-        url: 'csv/' + t + '.csv',
-        type: 'get',
-        dataType: 'text',
-        success: function(data) {
-          options.self[t] = $.csv.toObjects(data);
-          load(options);
+      // Use PapaParse to load Google Sheets CSV
+      Papa.parse(googleSheetUrl, {
+        download: true,
+        header: true,
+        complete: function(results) {
+          options.self[tab] = results.data; // Store the parsed data
+          load(options); // Recursively load the next tab
         },
-        error: function() {
-          alert('Error: Could not load ' + t + ' sheet');
+        error: function(err) {
+          console.error(`Error: Could not load ${tab} sheet`, err);
+          alert('Error: Could not load ' + tab + ' sheet');
         }
       });
     }
@@ -26,6 +27,7 @@ var Procsv = {
 
   // Returns an object with contents of the requested tab (sheet)
   sheets: function(sheet) {
-    return {'elements': this[sheet]};
+    return { 'elements': this[sheet] };
   }
 };
+
