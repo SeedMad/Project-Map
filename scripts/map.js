@@ -1042,42 +1042,34 @@ $(window).on('load', function() {
    */
    var mapData;
 
-   $.ajax({
-       url:'csv/Options.csv',
-       type:'HEAD',
-       error: function() {
-         // Options.csv does not exist, so use Tabletop to fetch data from
-         // the Google sheet
-         const csvUrl = 'https://docs.google.com/spreadsheets/d/1-GUwxh2aceJG_tVfPoFQShuggz8jMz7d4yscWmDpzDw/edit?gid=0#gid=0>/pub?output=csv';
+   // URL for your Google Sheets CSV
+const csvUrl = 'https://docs.google.com/spreadsheets/d/1-GUwxh2aceJG_tVfPoFQShuggz8jMz7d4yscWmDpzDw/edit?gid=0#gid=0/pub?output=csv';
 
+// Function to handle successful data loading
+function onMapDataLoad(data) {
+    data.forEach(row => {
+        console.log(row);
+        // Example: Add markers to your map based on CSV data
+        if (row.latitude && row.longitude) {
+            L.marker([parseFloat(row.latitude), parseFloat(row.longitude)])
+                .bindPopup(`<b>${row.name}</b><br>${row.description}`)
+                .addTo(map);
+        }
+    });
+}
+
+// Fetch and parse the CSV data using PapaParse
 Papa.parse(csvUrl, {
     download: true,
-    header: true,
+    header: true, // Automatically uses the first row as column headers
     complete: function(results) {
         console.log("Parsed Data:", results.data);
-        processData(results.data);
+        onMapDataLoad(results.data); // Pass the parsed data to the map handler
     },
     error: function(err) {
         console.error("Error loading CSV:", err);
     }
 });
-
-function processData(data) {
-    data.forEach(row => {
-        console.log(row);
-        // Add your map marker logic here, e.g.:
-        // L.marker([row.latitude, row.longitude]).addTo(map);
-    });
-}
-       success: function() {
-    // Get all data from .csv files
-    mapData = Procsv;
-    mapData.load({
-        self: mapData,
-        tabs: ['Options', 'Points', 'Polygons', 'Polylines'],
-        callback: onMapDataLoad
-    });
-}
 
   /**
    * Reformulates documentSettings as a dictionary, e.g.
