@@ -1043,7 +1043,7 @@ $(window).on('load', function() {
    var mapData;
 
    // URL for your Google Sheets CSV
-const csvUrl = 'https://docs.google.com/spreadsheets/d/1-GUwxh2aceJG_tVfPoFQShuggz8jMz7d4yscWmDpzDw/edit?gid=0#gid=0/pub?output=csv';
+const csvUrl = 'https://docs.google.com/spreadsheets/d/1-GUwxh2aceJG_tVfPoFQShuggz8jMz7d4yscWmDpzDw/edit?gid=0#gid=0';
 
 // Function to handle successful data loading
 function onMapDataLoad(data) {
