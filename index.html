@@ -16,11 +16,38 @@
   <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
   <!-- leaflet-providers -->
-  <script src="scripts/leaflet-providers/leaflet-providers.js"></script>
+  <script // Replace with your published Google Sheets CSV link
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTz5HReY6D0MUcXLWcWXhVwK9hUAY9DUrpEGMesYy2JsojUvaM4LwqNDZWSJuME1mKvtMWHN1MGDWoP/pubhtml>/pub?output=csv';
+
+// Fetch and parse the CSV data
+Papa.parse(csvUrl, {
+    download: true,
+    header: true, // Automatically use the first row as column headers
+    complete: function(results) {
+        console.log("Parsed Data:", results.data);
+        // Call your function to process and display the data on the map
+        processData(results.data);
+    },
+    error: function(err) {
+        console.error("Error loading CSV:", err);
+    }
+});
+
+// Function to process the parsed data
+function processData(data) {
+    // Example: Loop through the data and log it
+    data.forEach(row => {
+        console.log(row);
+        // Add your map marker logic here
+        // Example: L.marker([row.latitude, row.longitude]).addTo(map);
+    });
+}></script>
 
   <!-- Tabletop -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  
   <!-- Font Awesome -->
   <script src="https://use.fontawesome.com/77cd9dd4f5.js"></script>
 
